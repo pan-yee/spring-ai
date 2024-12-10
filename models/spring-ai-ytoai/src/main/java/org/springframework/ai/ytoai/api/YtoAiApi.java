@@ -139,7 +139,7 @@ public class YtoAiApi {
 		Assert.isTrue(!chatRequest.stream(), "Request must set the stream property to false.");
 
 		return this.restClient.post()
-				.uri("/v4/chat/completions")
+				.uri("/api/chat/chat")
 				.body(chatRequest)
 				.retrieve()
 				.toEntity(ChatCompletion.class);

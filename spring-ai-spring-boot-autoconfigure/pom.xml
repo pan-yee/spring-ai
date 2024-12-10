@@ -557,6 +557,11 @@
 			<artifactId>micrometer-observation-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-ytoai</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
 
 	</dependencies>
 

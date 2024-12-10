@@ -15,21 +15,16 @@ package org.springframework.ai.ytoai;/*
  */
 
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import org.springframework.ai.model.function.FunctionCallback;
 import org.springframework.ai.model.function.FunctionCallingOptions;
 import org.springframework.ai.ytoai.api.YtoAiApi;
 import org.springframework.util.Assert;
+
+import java.util.*;
 
 /**
  * ytoAiChatOptions represents the options for the ytoAiChat model.
@@ -41,6 +36,15 @@ import org.springframework.util.Assert;
 @JsonInclude(Include.NON_NULL)
 public class YtoAiChatOptions implements FunctionCallingOptions {
 
+	/**
+	 * Robot coding
+	 */
+	private @JsonProperty("robotCode") String robotCode;
+
+	/**
+	 * prompt， When passing chatMessages, this parameter is ignored
+	 */
+	private @JsonProperty("query") String query;
 	// @formatter:off
 	/**
 	 * ID of the model to use.
@@ -135,6 +139,8 @@ public class YtoAiChatOptions implements FunctionCallingOptions {
 
 	public static YtoAiChatOptions fromOptions(YtoAiChatOptions fromOptions) {
 		return YtoAiChatOptions.builder()
+			.withRobotCode(fromOptions.getRobotCode())
+			.withQuery(fromOptions.getQuery())
 			.withModel(fromOptions.getModel())
 			.withMaxTokens(fromOptions.getMaxTokens())
 			.withStop(fromOptions.getStop())
@@ -150,6 +156,22 @@ public class YtoAiChatOptions implements FunctionCallingOptions {
 			.withProxyToolCalls(fromOptions.getProxyToolCalls())
 			.withToolContext(fromOptions.getToolContext())
 			.build();
+	}
+
+	public String getRobotCode() {
+		return robotCode;
+	}
+
+	public void setRobotCode(String robotCode) {
+		this.robotCode = robotCode;
+	}
+
+	public String getQuery() {
+		return query;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
 	}
 
 	@Override
@@ -534,6 +556,15 @@ public class YtoAiChatOptions implements FunctionCallingOptions {
 			return this.options;
 		}
 
+		public Builder withRobotCode(String robotCode) {
+			this.options.robotCode = robotCode;
+			return this;
+		}
+
+		public Builder withQuery(String query) {
+			this.options.query = query;
+			return this;
+		}
 	}
 
 }
