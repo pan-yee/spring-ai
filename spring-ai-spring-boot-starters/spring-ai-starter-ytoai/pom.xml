@@ -25,8 +25,8 @@
 	</parent>
 	<artifactId>spring-ai-ytoai-spring-boot-starter</artifactId>
 	<packaging>jar</packaging>
-	<name>Spring AI Starter - ZhiPuAI</name>
-	<description>Spring AI ZhiPuAI Auto Configuration</description>
+	<name>Spring AI Starter - YtoAI</name>
+	<description>Spring AI YtoAI Auto Configuration</description>
 	<url>https://github.com/spring-projects/spring-ai</url>
 
 	<scm>
