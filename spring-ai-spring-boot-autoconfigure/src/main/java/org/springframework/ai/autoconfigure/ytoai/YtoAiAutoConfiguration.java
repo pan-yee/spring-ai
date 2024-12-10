@@ -59,16 +59,15 @@ public class YtoAiAutoConfiguration {
 	@ConditionalOnMissingBean
 	@ConditionalOnProperty(prefix = YtoAiChatProperties.CONFIG_PREFIX, name = "enabled", havingValue = "true",
 			matchIfMissing = true)
-	public YtoAiChatModel ytoAiChatModel(YtoAiConnectionProperties commonProperties,
-										   YtoAiChatProperties chatProperties, ObjectProvider<RestClient.Builder> restClientBuilderProvider,
-										   List<FunctionCallback> toolFunctionCallbacks, FunctionCallbackContext functionCallbackContext,
-										   RetryTemplate retryTemplate, ResponseErrorHandler responseErrorHandler,
-										   ObjectProvider<ObservationRegistry> observationRegistry,
-										   ObjectProvider<ChatModelObservationConvention> observationConvention) {
+	public YtoAiChatModel ytoAiChatModel(YtoAiConnectionProperties commonProperties, YtoAiChatProperties chatProperties,
+			ObjectProvider<RestClient.Builder> restClientBuilderProvider, List<FunctionCallback> toolFunctionCallbacks,
+			FunctionCallbackContext functionCallbackContext, RetryTemplate retryTemplate,
+			ResponseErrorHandler responseErrorHandler, ObjectProvider<ObservationRegistry> observationRegistry,
+			ObjectProvider<ChatModelObservationConvention> observationConvention) {
 
-		var ytoAiApi = ytoAiApi(chatProperties.getBaseUrl(), commonProperties.getBaseUrl(),
-				chatProperties.getApiKey(), commonProperties.getApiKey(),
-				restClientBuilderProvider.getIfAvailable(RestClient::builder), responseErrorHandler);
+		var ytoAiApi = ytoAiApi(chatProperties.getBaseUrl(), commonProperties.getBaseUrl(), chatProperties.getApiKey(),
+				commonProperties.getApiKey(), restClientBuilderProvider.getIfAvailable(RestClient::builder),
+				responseErrorHandler);
 
 		var chatModel = new YtoAiChatModel(ytoAiApi, chatProperties.getOptions(), functionCallbackContext,
 				toolFunctionCallbacks, retryTemplate, observationRegistry.getIfUnique(() -> ObservationRegistry.NOOP));
@@ -83,10 +82,10 @@ public class YtoAiAutoConfiguration {
 	@ConditionalOnProperty(prefix = YtoAiEmbeddingProperties.CONFIG_PREFIX, name = "enabled", havingValue = "true",
 			matchIfMissing = true)
 	public YtoAiEmbeddingModel ytoAiEmbeddingModel(YtoAiConnectionProperties commonProperties,
-													 YtoAiEmbeddingProperties embeddingProperties, RestClient.Builder restClientBuilder,
-													 RetryTemplate retryTemplate, ResponseErrorHandler responseErrorHandler,
-													 ObjectProvider<ObservationRegistry> observationRegistry,
-													 ObjectProvider<EmbeddingModelObservationConvention> observationConvention) {
+			YtoAiEmbeddingProperties embeddingProperties, RestClient.Builder restClientBuilder,
+			RetryTemplate retryTemplate, ResponseErrorHandler responseErrorHandler,
+			ObjectProvider<ObservationRegistry> observationRegistry,
+			ObjectProvider<EmbeddingModelObservationConvention> observationConvention) {
 
 		var ytoAiApi = ytoAiApi(embeddingProperties.getBaseUrl(), commonProperties.getBaseUrl(),
 				embeddingProperties.getApiKey(), commonProperties.getApiKey(), restClientBuilder, responseErrorHandler);
@@ -117,8 +116,8 @@ public class YtoAiAutoConfiguration {
 	@ConditionalOnProperty(prefix = YtoAiImageProperties.CONFIG_PREFIX, name = "enabled", havingValue = "true",
 			matchIfMissing = true)
 	public YtoAiImageModel ytoAiImageModel(YtoAiConnectionProperties commonProperties,
-											 YtoAiImageProperties imageProperties, RestClient.Builder restClientBuilder, RetryTemplate retryTemplate,
-											 ResponseErrorHandler responseErrorHandler) {
+			YtoAiImageProperties imageProperties, RestClient.Builder restClientBuilder, RetryTemplate retryTemplate,
+			ResponseErrorHandler responseErrorHandler) {
 
 		String apiKey = StringUtils.hasText(imageProperties.getApiKey()) ? imageProperties.getApiKey()
 				: commonProperties.getApiKey();

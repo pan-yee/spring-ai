@@ -43,9 +43,7 @@ public class YtoAiEmbeddingProperties extends YtoAiParentProperties {
 	private MetadataMode metadataMode = MetadataMode.EMBED;
 
 	@NestedConfigurationProperty
-	private YtoAiEmbeddingOptions options = YtoAiEmbeddingOptions.builder()
-		.withModel(DEFAULT_EMBEDDING_MODEL)
-		.build();
+	private YtoAiEmbeddingOptions options = YtoAiEmbeddingOptions.builder().withModel(DEFAULT_EMBEDDING_MODEL).build();
 
 	public YtoAiEmbeddingOptions getOptions() {
 		return this.options;
