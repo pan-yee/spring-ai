@@ -54,7 +54,7 @@ public class YtoAiEmbeddingModel extends AbstractEmbeddingModel {
 
 	private final RetryTemplate retryTemplate;
 
-	private final YtoAiApi zhiPuAiApi;
+	private final YtoAiApi ytoAiApi;
 
 	private final MetadataMode metadataMode;
 
@@ -70,63 +70,63 @@ public class YtoAiEmbeddingModel extends AbstractEmbeddingModel {
 
 	/**
 	 * Constructor for the ZhiPuAiEmbeddingModel class.
-	 * @param zhiPuAiApi The ZhiPuAiApi instance to use for making API requests.
+	 * @param ytoAiApi The ZhiPuAiApi instance to use for making API requests.
 	 */
-	public YtoAiEmbeddingModel(YtoAiApi zhiPuAiApi) {
-		this(zhiPuAiApi, MetadataMode.EMBED);
+	public YtoAiEmbeddingModel(YtoAiApi ytoAiApi) {
+		this(ytoAiApi, MetadataMode.EMBED);
 	}
 
 	/**
 	 * Initializes a new instance of the ZhiPuAiEmbeddingModel class.
-	 * @param zhiPuAiApi The ZhiPuAiApi instance to use for making API requests.
+	 * @param ytoAiApi The ZhiPuAiApi instance to use for making API requests.
 	 * @param metadataMode The mode for generating metadata.
 	 */
-	public YtoAiEmbeddingModel(YtoAiApi zhiPuAiApi, MetadataMode metadataMode) {
-		this(zhiPuAiApi, metadataMode,
+	public YtoAiEmbeddingModel(YtoAiApi ytoAiApi, MetadataMode metadataMode) {
+		this(ytoAiApi, metadataMode,
 				YtoAiEmbeddingOptions.builder().withModel(YtoAiApi.DEFAULT_EMBEDDING_MODEL).build(),
 				RetryUtils.DEFAULT_RETRY_TEMPLATE);
 	}
 
 	/**
 	 * Initializes a new instance of the ZhiPuAiEmbeddingModel class.
-	 * @param zhiPuAiApi The ZhiPuAiApi instance to use for making API requests.
+	 * @param ytoAiApi The ZhiPuAiApi instance to use for making API requests.
 	 * @param metadataMode The mode for generating metadata.
-	 * @param zhiPuAiEmbeddingOptions The options for ZhiPuAI embedding.
+	 * @param ytoAiEmbeddingOptions The options for ZhiPuAI embedding.
 	 */
-	public YtoAiEmbeddingModel(YtoAiApi zhiPuAiApi, MetadataMode metadataMode,
-                               YtoAiEmbeddingOptions zhiPuAiEmbeddingOptions) {
-		this(zhiPuAiApi, metadataMode, zhiPuAiEmbeddingOptions, RetryUtils.DEFAULT_RETRY_TEMPLATE);
+	public YtoAiEmbeddingModel(YtoAiApi ytoAiApi, MetadataMode metadataMode,
+                               YtoAiEmbeddingOptions ytoAiEmbeddingOptions) {
+		this(ytoAiApi, metadataMode, ytoAiEmbeddingOptions, RetryUtils.DEFAULT_RETRY_TEMPLATE);
 	}
 
 	/**
 	 * Initializes a new instance of the ZhiPuAiEmbeddingModel class.
-	 * @param zhiPuAiApi The ZhiPuAiApi instance to use for making API requests.
+	 * @param ytoAiApi The ZhiPuAiApi instance to use for making API requests.
 	 * @param metadataMode The mode for generating metadata.
-	 * @param zhiPuAiEmbeddingOptions The options for ZhiPuAI embedding.
+	 * @param ytoAiEmbeddingOptions The options for ZhiPuAI embedding.
 	 * @param retryTemplate - The RetryTemplate for retrying failed API requests.
 	 */
-	public YtoAiEmbeddingModel(YtoAiApi zhiPuAiApi, MetadataMode metadataMode,
-							   YtoAiEmbeddingOptions zhiPuAiEmbeddingOptions, RetryTemplate retryTemplate) {
-		this(zhiPuAiApi, metadataMode, zhiPuAiEmbeddingOptions, retryTemplate, ObservationRegistry.NOOP);
+	public YtoAiEmbeddingModel(YtoAiApi ytoAiApi, MetadataMode metadataMode,
+							   YtoAiEmbeddingOptions ytoAiEmbeddingOptions, RetryTemplate retryTemplate) {
+		this(ytoAiApi, metadataMode, ytoAiEmbeddingOptions, retryTemplate, ObservationRegistry.NOOP);
 	}
 
 	/**
 	 * Initializes a new instance of the ZhiPuAiEmbeddingModel class.
-	 * @param zhiPuAiApi - The ZhiPuAiApi instance to use for making API requests.
+	 * @param ytoAiApi - The ZhiPuAiApi instance to use for making API requests.
 	 * @param metadataMode - The mode for generating metadata.
 	 * @param options - The options for ZhiPuAI embedding.
 	 * @param retryTemplate - The RetryTemplate for retrying failed API requests.
 	 * @param observationRegistry - The ObservationRegistry used for instrumentation.
 	 */
-	public YtoAiEmbeddingModel(YtoAiApi zhiPuAiApi, MetadataMode metadataMode, YtoAiEmbeddingOptions options,
+	public YtoAiEmbeddingModel(YtoAiApi ytoAiApi, MetadataMode metadataMode, YtoAiEmbeddingOptions options,
                                RetryTemplate retryTemplate, ObservationRegistry observationRegistry) {
-		Assert.notNull(zhiPuAiApi, "ZhiPuAiApi must not be null");
+		Assert.notNull(ytoAiApi, "ZhiPuAiApi must not be null");
 		Assert.notNull(metadataMode, "metadataMode must not be null");
 		Assert.notNull(options, "options must not be null");
 		Assert.notNull(retryTemplate, "retryTemplate must not be null");
 		Assert.notNull(observationRegistry, "observationRegistry must not be null");
 
-		this.zhiPuAiApi = zhiPuAiApi;
+		this.ytoAiApi = ytoAiApi;
 		this.metadataMode = metadataMode;
 		this.defaultOptions = options;
 		this.retryTemplate = retryTemplate;
@@ -166,7 +166,7 @@ public class YtoAiEmbeddingModel extends AbstractEmbeddingModel {
 					var apiRequest = createEmbeddingRequest(inputContent, requestOptions);
 
 					YtoAiApi.EmbeddingList<YtoAiApi.Embedding> response = this.retryTemplate
-						.execute(ctx -> this.zhiPuAiApi.embeddings(apiRequest).getBody());
+						.execute(ctx -> this.ytoAiApi.embeddings(apiRequest).getBody());
 					if (response == null || response.data() == null || response.data().isEmpty()) {
 						logger.warn("No embeddings returned for input: {}", inputContent);
 						embeddingList.add(new float[0]);

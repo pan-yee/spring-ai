@@ -15,19 +15,18 @@ package org.springframework.ai.ytoai.api;/*
  */
 
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import org.springframework.ai.retry.RetryUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestClient;
 
+import java.util.List;
+
 /**
- * ZhiPuAI Image API.
+ * ytoAI Image API.
  *
  * @see <a href= "https://open.bigmodel.cn/dev/howuse/cogview">CogView Images</a>
  * @author Geng Rong
@@ -40,18 +39,18 @@ public class YtoAiImageApi {
 	private final RestClient restClient;
 
 	/**
-	 * Create a new ZhiPuAI Image api with base URL set to
-	 * {@code https://api.ZhiPuAI.com}.
-	 * @param zhiPuAiToken ZhiPuAI apiKey.
+	 * Create a new ytoAI Image api with base URL set to
+	 * {@code https://api.ytoAI.com}.
+	 * @param zhiPuAiToken ytoAI apiKey.
 	 */
 	public YtoAiImageApi(String zhiPuAiToken) {
 		this(YtoApiConstants.DEFAULT_BASE_URL, zhiPuAiToken, RestClient.builder());
 	}
 
 	/**
-	 * Create a new ZhiPuAI Image API with the provided base URL.
-	 * @param baseUrl the base URL for the ZhiPuAI API.
-	 * @param zhiPuAiToken ZhiPuAI apiKey.
+	 * Create a new ytoAI Image API with the provided base URL.
+	 * @param baseUrl the base URL for the ytoAI API.
+	 * @param zhiPuAiToken ytoAI apiKey.
 	 * @param restClientBuilder the rest client builder to use.
 	 */
 	public YtoAiImageApi(String baseUrl, String zhiPuAiToken, RestClient.Builder restClientBuilder) {
@@ -59,9 +58,9 @@ public class YtoAiImageApi {
 	}
 
 	/**
-	 * Create a new ZhiPuAI Image API with the provided base URL.
-	 * @param baseUrl the base URL for the ZhiPuAI API.
-	 * @param zhiPuAiToken ZhiPuAI apiKey.
+	 * Create a new ytoAI Image API with the provided base URL.
+	 * @param baseUrl the base URL for the ytoAI API.
+	 * @param zhiPuAiToken ytoAI apiKey.
 	 * @param restClientBuilder the rest client builder to use.
 	 * @param responseErrorHandler the response error handler to use.
 	 */
@@ -73,7 +72,7 @@ public class YtoAiImageApi {
 		).defaultStatusHandler(responseErrorHandler).build();
 	}
 
-	public ResponseEntity<ZhiPuAiImageResponse> createImage(ZhiPuAiImageRequest zhiPuAiImageRequest) {
+	public ResponseEntity<YtoAiImageResponse> createImage(YtoAiImageRequest zhiPuAiImageRequest) {
 		Assert.notNull(zhiPuAiImageRequest, "Image request cannot be null.");
 		Assert.hasLength(zhiPuAiImageRequest.prompt(), "Prompt cannot be empty.");
 
@@ -81,11 +80,11 @@ public class YtoAiImageApi {
 			.uri("/v4/images/generations")
 			.body(zhiPuAiImageRequest)
 			.retrieve()
-			.toEntity(ZhiPuAiImageResponse.class);
+			.toEntity(YtoAiImageResponse.class);
 	}
 
 	/**
-	 * ZhiPuAI Image API model.
+	 * ytoAI Image API model.
 	 * <a href="https://open.bigmodel.cn/dev/howuse/cogview">CogView</a>
 	 */
 	public enum ImageModel {
@@ -106,18 +105,18 @@ public class YtoAiImageApi {
 
 	// @formatter:off
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	public record ZhiPuAiImageRequest(
+	public record YtoAiImageRequest(
 		@JsonProperty("prompt") String prompt,
 		@JsonProperty("model") String model,
 		@JsonProperty("user_id") String user) {
 
-		public ZhiPuAiImageRequest(String prompt, String model) {
+		public YtoAiImageRequest(String prompt, String model) {
 			this(prompt, model, null);
 		}
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	public record ZhiPuAiImageResponse(
+	public record YtoAiImageResponse(
 		@JsonProperty("created") Long created,
 		@JsonProperty("data") List<Data> data) {
 	}

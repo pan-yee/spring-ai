@@ -159,7 +159,7 @@ public class YtoAiApi {
 		AtomicBoolean isInsideTool = new AtomicBoolean(false);
 
 		return this.webClient.post()
-				.uri("/v4/chat/completions")
+				.uri("/api/chat/chat")
 				.body(Mono.just(chatRequest), ChatCompletionRequest.class)
 				.retrieve()
 				.bodyToFlux(String.class)

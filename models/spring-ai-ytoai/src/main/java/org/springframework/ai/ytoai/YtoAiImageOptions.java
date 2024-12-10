@@ -25,7 +25,7 @@ import org.springframework.ai.image.ImageOptions;
 import org.springframework.ai.ytoai.api.YtoAiImageApi;
 
 /**
- * ZhiPuAiImageOptions represents the options for image generation using ZhiPuAI image
+ * ytoAiImageOptions represents the options for image generation using ytoAI image
  * model.
  *
  * <p>
@@ -37,7 +37,7 @@ import org.springframework.ai.ytoai.api.YtoAiImageApi;
  * Default values:
  * </p>
  * <ul>
- * <li>model: ZhiPuAiImageApi.DEFAULT_IMAGE_MODEL</li>
+ * <li>model: ytoAiImageApi.DEFAULT_IMAGE_MODEL</li>
  * <li>user: null</li>
  * </ul>
  *
@@ -54,7 +54,7 @@ public class YtoAiImageOptions implements ImageOptions {
 	private String model = YtoAiImageApi.DEFAULT_IMAGE_MODEL;
 
 	/**
-	 * A unique identifier representing your end-user, which can help ZhiPuAI to monitor
+	 * A unique identifier representing your end-user, which can help ytoAI to monitor
 	 * and detect abuse. User ID length requirement: minimum of 6 characters, maximum of
 	 * 128 characters
 	 */
@@ -130,7 +130,7 @@ public class YtoAiImageOptions implements ImageOptions {
 
 	@Override
 	public String toString() {
-		return "ZhiPuAiImageOptions{model='" + this.model + '\'' + ", user='" + this.user + '\'' + '}';
+		return "ytoAiImageOptions{model='" + this.model + '\'' + ", user='" + this.user + '\'' + '}';
 	}
 
 	public static final class Builder {

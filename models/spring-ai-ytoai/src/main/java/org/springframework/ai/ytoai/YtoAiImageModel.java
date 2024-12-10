@@ -35,8 +35,8 @@ import org.springframework.retry.support.RetryTemplate;
 import org.springframework.util.Assert;
 
 /**
- * ZhiPuAiImageModel is a class that implements the ImageModel interface. It provides a
- * client for calling the ZhiPuAI image generation API.
+ * YtoAiImageModel is a class that implements the ImageModel interface. It provides a
+ * client for calling the YtoAI image generation API.
  *
  * @author Geng Rong
  * @since 1.0.0 M1
@@ -49,18 +49,18 @@ public class YtoAiImageModel implements ImageModel {
 
 	private final org.springframework.ai.ytoai.YtoAiImageOptions defaultOptions;
 
-	private final YtoAiImageApi zhiPuAiImageApi;
+	private final YtoAiImageApi ytoAiImageApi;
 
-	public YtoAiImageModel(YtoAiImageApi zhiPuAiImageApi) {
-		this(zhiPuAiImageApi, org.springframework.ai.ytoai.YtoAiImageOptions.builder().build(), RetryUtils.DEFAULT_RETRY_TEMPLATE);
+	public YtoAiImageModel(YtoAiImageApi ytoAiImageApi) {
+		this(ytoAiImageApi, org.springframework.ai.ytoai.YtoAiImageOptions.builder().build(), RetryUtils.DEFAULT_RETRY_TEMPLATE);
 	}
 
-	public YtoAiImageModel(YtoAiImageApi zhiPuAiImageApi, org.springframework.ai.ytoai.YtoAiImageOptions defaultOptions,
+	public YtoAiImageModel(YtoAiImageApi ytoAiImageApi, org.springframework.ai.ytoai.YtoAiImageOptions defaultOptions,
                            RetryTemplate retryTemplate) {
-		Assert.notNull(zhiPuAiImageApi, "ZhiPuAiImageApi must not be null");
+		Assert.notNull(ytoAiImageApi, "YtoAiImageApi must not be null");
 		Assert.notNull(defaultOptions, "defaultOptions must not be null");
 		Assert.notNull(retryTemplate, "retryTemplate must not be null");
-		this.zhiPuAiImageApi = zhiPuAiImageApi;
+		this.ytoAiImageApi = ytoAiImageApi;
 		this.defaultOptions = defaultOptions;
 		this.retryTemplate = retryTemplate;
 	}
@@ -75,21 +75,21 @@ public class YtoAiImageModel implements ImageModel {
 
 			String instructions = imagePrompt.getInstructions().get(0).getText();
 
-			YtoAiImageApi.ZhiPuAiImageRequest imageRequest = new YtoAiImageApi.ZhiPuAiImageRequest(instructions,
+			YtoAiImageApi.YtoAiImageRequest imageRequest = new YtoAiImageApi.YtoAiImageRequest(instructions,
 					YtoAiImageApi.DEFAULT_IMAGE_MODEL);
 
 			if (this.defaultOptions != null) {
 				imageRequest = ModelOptionsUtils.merge(this.defaultOptions, imageRequest,
-						YtoAiImageApi.ZhiPuAiImageRequest.class);
+						YtoAiImageApi.YtoAiImageRequest.class);
 			}
 
 			if (imagePrompt.getOptions() != null) {
-				imageRequest = ModelOptionsUtils.merge(toZhiPuAiImageOptions(imagePrompt.getOptions()), imageRequest,
-						YtoAiImageApi.ZhiPuAiImageRequest.class);
+				imageRequest = ModelOptionsUtils.merge(toYtoAiImageOptions(imagePrompt.getOptions()), imageRequest,
+						YtoAiImageApi.YtoAiImageRequest.class);
 			}
 
 			// Make the request
-			ResponseEntity<YtoAiImageApi.ZhiPuAiImageResponse> imageResponseEntity = this.zhiPuAiImageApi
+			ResponseEntity<YtoAiImageApi.YtoAiImageResponse> imageResponseEntity = this.ytoAiImageApi
 				.createImage(imageRequest);
 
 			// Convert to org.springframework.ai.model derived ImageResponse data type
@@ -97,11 +97,11 @@ public class YtoAiImageModel implements ImageModel {
 		});
 	}
 
-	private ImageResponse convertResponse(ResponseEntity<YtoAiImageApi.ZhiPuAiImageResponse> imageResponseEntity,
-			YtoAiImageApi.ZhiPuAiImageRequest zhiPuAiImageRequest) {
-		YtoAiImageApi.ZhiPuAiImageResponse imageApiResponse = imageResponseEntity.getBody();
+	private ImageResponse convertResponse(ResponseEntity<YtoAiImageApi.YtoAiImageResponse> imageResponseEntity,
+			YtoAiImageApi.YtoAiImageRequest ytoAiImageRequest) {
+		YtoAiImageApi.YtoAiImageResponse imageApiResponse = imageResponseEntity.getBody();
 		if (imageApiResponse == null) {
-			logger.warn("No image response returned for request: {}", zhiPuAiImageRequest);
+			logger.warn("No image response returned for request: {}", ytoAiImageRequest);
 			return new ImageResponse(List.of());
 		}
 
@@ -118,19 +118,19 @@ public class YtoAiImageModel implements ImageModel {
 	 * @param runtimeImageOptions the image options to use.
 	 * @return the converted {@link YtoAiImageOptions}.
 	 */
-	private org.springframework.ai.ytoai.YtoAiImageOptions toZhiPuAiImageOptions(ImageOptions runtimeImageOptions) {
-		org.springframework.ai.ytoai.YtoAiImageOptions.Builder zhiPuAiImageOptionsBuilder = org.springframework.ai.ytoai.YtoAiImageOptions.builder();
+	private org.springframework.ai.ytoai.YtoAiImageOptions toYtoAiImageOptions(ImageOptions runtimeImageOptions) {
+		org.springframework.ai.ytoai.YtoAiImageOptions.Builder ytoAiImageOptionsBuilder = org.springframework.ai.ytoai.YtoAiImageOptions.builder();
 		if (runtimeImageOptions != null) {
 			if (runtimeImageOptions.getModel() != null) {
-				zhiPuAiImageOptionsBuilder.withModel(runtimeImageOptions.getModel());
+				ytoAiImageOptionsBuilder.withModel(runtimeImageOptions.getModel());
 			}
-			if (runtimeImageOptions instanceof org.springframework.ai.ytoai.YtoAiImageOptions runtimeZhiPuAiImageOptions) {
-				if (runtimeZhiPuAiImageOptions.getUser() != null) {
-					zhiPuAiImageOptionsBuilder.withUser(runtimeZhiPuAiImageOptions.getUser());
+			if (runtimeImageOptions instanceof org.springframework.ai.ytoai.YtoAiImageOptions runtimeYtoAiImageOptions) {
+				if (runtimeYtoAiImageOptions.getUser() != null) {
+					ytoAiImageOptionsBuilder.withUser(runtimeYtoAiImageOptions.getUser());
 				}
 			}
 		}
-		return zhiPuAiImageOptionsBuilder.build();
+		return ytoAiImageOptionsBuilder.build();
 	}
 
 }

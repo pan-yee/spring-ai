@@ -25,9 +25,9 @@ import org.springframework.ai.observation.conventions.AiProvider;
  */
 public final class YtoApiConstants {
 
-	public static final String DEFAULT_BASE_URL = "https://open.bigmodel.cn/api/paas";
+	public static final String DEFAULT_BASE_URL = "http://10.130.13.74:8060";
 
-	public static final String PROVIDER_NAME = AiProvider.ZHIPUAI.value();
+	public static final String PROVIDER_NAME = AiProvider.YTOAI.value();
 
 	private YtoApiConstants() {
 

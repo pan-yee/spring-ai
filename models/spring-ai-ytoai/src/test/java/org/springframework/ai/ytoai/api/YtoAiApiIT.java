@@ -29,15 +29,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Geng Rong
  */
-@EnabledIfEnvironmentVariable(named = "ZHIPU_AI_API_KEY", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "YTO_AI_API_KEY", matches = ".+")
 public class YtoAiApiIT {
 
-	YtoAiApi zhiPuAiApi = new YtoAiApi(System.getenv("ZHIPU_AI_API_KEY"));
+	YtoAiApi ytoAiApi = new YtoAiApi(System.getenv("YTO_AI_API_KEY"));
 
 	@Test
 	void chatCompletionEntity() {
 		YtoAiApi.ChatCompletionMessage chatCompletionMessage = new YtoAiApi.ChatCompletionMessage("Hello world", YtoAiApi.ChatCompletionMessage.Role.USER);
-		ResponseEntity<YtoAiApi.ChatCompletion> response = this.zhiPuAiApi
+		ResponseEntity<YtoAiApi.ChatCompletion> response = this.ytoAiApi
 			.chatCompletionEntity(new YtoAiApi.ChatCompletionRequest(List.of(chatCompletionMessage), "glm-3-turbo", 0.7, false));
 
 		assertThat(response).isNotNull();
@@ -47,7 +47,7 @@ public class YtoAiApiIT {
 	@Test
 	void chatCompletionEntityWithMoreParams() {
 		YtoAiApi.ChatCompletionMessage chatCompletionMessage = new YtoAiApi.ChatCompletionMessage("Hello world", YtoAiApi.ChatCompletionMessage.Role.USER);
-		ResponseEntity<YtoAiApi.ChatCompletion> response = this.zhiPuAiApi
+		ResponseEntity<YtoAiApi.ChatCompletion> response = this.ytoAiApi
 			.chatCompletionEntity(new YtoAiApi.ChatCompletionRequest(List.of(chatCompletionMessage), "glm-3-turbo", 1024, null,
 					false, 0.95, 0.7, null, null, null, "test_request_id", false));
 
@@ -58,7 +58,7 @@ public class YtoAiApiIT {
 	@Test
 	void chatCompletionStream() {
 		YtoAiApi.ChatCompletionMessage chatCompletionMessage = new YtoAiApi.ChatCompletionMessage("Hello world", YtoAiApi.ChatCompletionMessage.Role.USER);
-		Flux<YtoAiApi.ChatCompletionChunk> response = this.zhiPuAiApi
+		Flux<YtoAiApi.ChatCompletionChunk> response = this.ytoAiApi
 			.chatCompletionStream(new YtoAiApi.ChatCompletionRequest(List.of(chatCompletionMessage), "glm-3-turbo", 0.7, true));
 
 		assertThat(response).isNotNull();
@@ -67,7 +67,7 @@ public class YtoAiApiIT {
 
 	@Test
 	void embeddings() {
-		ResponseEntity<YtoAiApi.EmbeddingList<YtoAiApi.Embedding>> response = this.zhiPuAiApi
+		ResponseEntity<YtoAiApi.EmbeddingList<YtoAiApi.Embedding>> response = this.ytoAiApi
 			.embeddings(new YtoAiApi.EmbeddingRequest<>("Hello world", YtoAiApi.DEFAULT_EMBEDDING_MODEL, 1024));
 
 		assertThat(response).isNotNull();

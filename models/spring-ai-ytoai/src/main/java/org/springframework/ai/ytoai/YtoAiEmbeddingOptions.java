@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.ai.embedding.EmbeddingOptions;
 
 /**
- * The ZhiPuAiEmbeddingOptions class represents the options for ZhiPuAI embedding.
+ * The ytoAiEmbeddingOptions class represents the options for ytoAI embedding.
  *
  * @author Geng Rong
  * @author Thomas Vitale

@@ -32,7 +32,7 @@ import org.springframework.ai.ytoai.api.YtoAiApi;
 import org.springframework.util.Assert;
 
 /**
- * ZhiPuAiChatOptions represents the options for the ZhiPuAiChat model.
+ * ytoAiChatOptions represents the options for the ytoAiChat model.
  *
  * @author Geng Rong
  * @author Thomas Vitale
@@ -84,7 +84,7 @@ public class YtoAiChatOptions implements FunctionCallingOptions {
 	 */
 	private @JsonProperty("tool_choice") String toolChoice;
 	/**
-	 * A unique identifier representing your end-user, which can help ZhiPuAI to monitor and detect abuse.
+	 * A unique identifier representing your end-user, which can help ytoAI to monitor and detect abuse.
 	 * ID length requirement: minimum of 6 characters, maximum of 128 characters.
 	 */
 	private @JsonProperty("user_id") String user;
@@ -102,7 +102,7 @@ public class YtoAiChatOptions implements FunctionCallingOptions {
 	private @JsonProperty("do_sample") Boolean doSample;
 
 	/**
-	 * ZhiPuAI Tool Function Callbacks to register with the ChatModel.
+	 * ytoAI Tool Function Callbacks to register with the ChatModel.
 	 * For Prompt Options the functionCallbacks are automatically enabled for the duration of the prompt execution.
 	 * For Default Options the functionCallbacks are registered but disabled by default. Use the enableFunctions to set the functions
 	 * from the registry to be used by the ChatModel chat completion requests.

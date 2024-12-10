@@ -166,9 +166,9 @@ public class YtoAiRetryTests {
 	@Test
 	public void zhiPuAiImageTransientError() {
 
-		var expectedResponse = new YtoAiImageApi.ZhiPuAiImageResponse(678L, List.of(new YtoAiImageApi.Data("url678")));
+		var expectedResponse = new YtoAiImageApi.YtoAiImageResponse(678L, List.of(new YtoAiImageApi.Data("url678")));
 
-		given(this.zhiPuAiImageApi.createImage(isA(YtoAiImageApi.ZhiPuAiImageRequest.class)))
+		given(this.zhiPuAiImageApi.createImage(isA(YtoAiImageApi.YtoAiImageRequest.class)))
 			.willThrow(new TransientAiException("Transient Error 1"))
 			.willThrow(new TransientAiException("Transient Error 2"))
 			.willReturn(ResponseEntity.of(Optional.of(expectedResponse)));
@@ -183,7 +183,7 @@ public class YtoAiRetryTests {
 
 	@Test
 	public void zhiPuAiImageNonTransientError() {
-		given(this.zhiPuAiImageApi.createImage(isA(YtoAiImageApi.ZhiPuAiImageRequest.class)))
+		given(this.zhiPuAiImageApi.createImage(isA(YtoAiImageApi.YtoAiImageRequest.class)))
 			.willThrow(new RuntimeException("Transient Error 1"));
 		assertThrows(RuntimeException.class,
 				() -> this.imageModel.call(new ImagePrompt(List.of(new ImageMessage("Image Message")))));
