@@ -52,7 +52,7 @@ import static org.springframework.ai.chat.observation.ChatModelObservationDocume
  * @author Geng Rong
  */
 @SpringBootTest(classes = YtoAiChatModelObservationIT.Config.class)
-@EnabledIfEnvironmentVariable(named = "ZHIPU_AI_API_KEY", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "YTO_AI_API_KEY", matches = ".+")
 public class YtoAiChatModelObservationIT {
 
 	@Autowired
@@ -128,7 +128,7 @@ public class YtoAiChatModelObservationIT {
 			.hasContextualNameEqualTo("chat " + YtoAiApi.ChatModel.GLM_4_Air.getValue())
 			.hasLowCardinalityKeyValue(LowCardinalityKeyNames.AI_OPERATION_TYPE.asString(),
 					AiOperationType.CHAT.value())
-			.hasLowCardinalityKeyValue(LowCardinalityKeyNames.AI_PROVIDER.asString(), AiProvider.ZHIPUAI.value())
+			.hasLowCardinalityKeyValue(LowCardinalityKeyNames.AI_PROVIDER.asString(), AiProvider.YTOAI.value())
 			.hasLowCardinalityKeyValue(LowCardinalityKeyNames.REQUEST_MODEL.asString(),
 					YtoAiApi.ChatModel.GLM_4_Air.getValue())
 			.hasLowCardinalityKeyValue(LowCardinalityKeyNames.RESPONSE_MODEL.asString(), responseMetadata.getModel())
@@ -159,13 +159,13 @@ public class YtoAiChatModelObservationIT {
 		}
 
 		@Bean
-		public YtoAiApi zhiPuAiApi() {
-			return new YtoAiApi(System.getenv("ZHIPU_AI_API_KEY"));
+		public YtoAiApi ytoAiApi() {
+			return new YtoAiApi(System.getenv("YTO_AI_API_KEY"));
 		}
 
 		@Bean
-		public YtoAiChatModel zhiPuAiChatModel(YtoAiApi zhiPuAiApi, TestObservationRegistry observationRegistry) {
-			return new YtoAiChatModel(zhiPuAiApi, YtoAiChatOptions.builder().build(), new FunctionCallbackContext(),
+		public YtoAiChatModel ytoAiChatModel(YtoAiApi ytoAiApi, TestObservationRegistry observationRegistry) {
+			return new YtoAiChatModel(ytoAiApi, YtoAiChatOptions.builder().build(), new FunctionCallbackContext(),
 					List.of(), RetryTemplate.defaultInstance(), observationRegistry);
 		}
 

@@ -32,7 +32,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = YtoAiTestConfiguration.class)
-@EnabledIfEnvironmentVariable(named = "ZHIPU_AI_API_KEY", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "YTO_AI_API_KEY", matches = ".+")
 public class YtoAiImageModelIT {
 
 	@Autowired

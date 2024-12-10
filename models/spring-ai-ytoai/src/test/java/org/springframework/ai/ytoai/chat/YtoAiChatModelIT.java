@@ -66,7 +66,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Geng Rong
  */
 @SpringBootTest(classes = YtoAiTestConfiguration.class)
-@EnabledIfEnvironmentVariable(named = "ZHIPU_AI_API_KEY", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "YTO_AI_API_KEY", matches = ".+")
 class YtoAiChatModelIT {
 
 	private static final Logger logger = LoggerFactory.getLogger(YtoAiChatModelIT.class);

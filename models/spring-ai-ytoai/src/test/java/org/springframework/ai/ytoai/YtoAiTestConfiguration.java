@@ -17,9 +17,6 @@
 package org.springframework.ai.ytoai;
 
 import org.springframework.ai.embedding.EmbeddingModel;
-import org.springframework.ai.ytoai.YtoAiChatModel;
-import org.springframework.ai.ytoai.YtoAiEmbeddingModel;
-import org.springframework.ai.ytoai.YtoAiImageModel;
 import org.springframework.ai.ytoai.api.YtoAiApi;
 import org.springframework.ai.ytoai.api.YtoAiImageApi;
 import org.springframework.boot.SpringBootConfiguration;
@@ -33,36 +30,36 @@ import org.springframework.util.StringUtils;
 public class YtoAiTestConfiguration {
 
 	@Bean
-	public YtoAiApi zhiPuAiApi() {
+	public YtoAiApi ytoAiApi() {
 		return new YtoAiApi(getApiKey());
 	}
 
 	@Bean
-	public YtoAiImageApi zhiPuAiImageApi() {
+	public YtoAiImageApi ytoAiImageApi() {
 		return new YtoAiImageApi(getApiKey());
 	}
 
 	private String getApiKey() {
-		String apiKey = System.getenv("ZHIPU_AI_API_KEY");
+		String apiKey = System.getenv("YTO_AI_API_KEY");
 		if (!StringUtils.hasText(apiKey)) {
 			throw new IllegalArgumentException(
-					"You must provide an API key.  Put it in an environment variable under the name ZHIPU_AI_API_KEY");
+					"You must provide an API key.  Put it in an environment variable under the name YTO_AI_API_KEY");
 		}
 		return apiKey;
 	}
 
 	@Bean
-	public YtoAiChatModel zhiPuAiChatModel(YtoAiApi api) {
+	public YtoAiChatModel ytoAiChatModel(YtoAiApi api) {
 		return new YtoAiChatModel(api);
 	}
 
 	@Bean
-	public YtoAiImageModel zhiPuAiImageModel(YtoAiImageApi imageApi) {
+	public YtoAiImageModel ytoAiImageModel(YtoAiImageApi imageApi) {
 		return new YtoAiImageModel(imageApi);
 	}
 
 	@Bean
-	public EmbeddingModel zhiPuAiEmbeddingModel(YtoAiApi api) {
+	public EmbeddingModel ytoAiEmbeddingModel(YtoAiApi api) {
 		return new YtoAiEmbeddingModel(api);
 	}
 

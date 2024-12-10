@@ -49,7 +49,7 @@ import static org.springframework.ai.embedding.observation.EmbeddingModelObserva
  * @author Geng Rong
  */
 @SpringBootTest(classes = YtoAiEmbeddingModelObservationIT.Config.class)
-@EnabledIfEnvironmentVariable(named = "ZHIPU_AI_API_KEY", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "YTO_AI_API_KEY", matches = ".+")
 public class YtoAiEmbeddingModelObservationIT {
 
 	@Autowired
@@ -101,7 +101,7 @@ public class YtoAiEmbeddingModelObservationIT {
 
 		@Bean
 		public YtoAiApi zhiPuAiApi() {
-			return new YtoAiApi(System.getenv("ZHIPU_AI_API_KEY"));
+			return new YtoAiApi(System.getenv("YTO_AI_API_KEY"));
 		}
 
 		@Bean

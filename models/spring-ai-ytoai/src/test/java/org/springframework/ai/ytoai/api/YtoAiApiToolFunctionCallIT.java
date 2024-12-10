@@ -41,14 +41,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Geng Rong
  */
-@EnabledIfEnvironmentVariable(named = "ZHIPU_AI_API_KEY", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "YTO_AI_API_KEY", matches = ".+")
 public class YtoAiApiToolFunctionCallIT {
 
 	private final Logger logger = LoggerFactory.getLogger(YtoAiApiToolFunctionCallIT.class);
 
 	MockWeatherService weatherService = new MockWeatherService();
 
-	YtoAiApi zhiPuAiApi = new YtoAiApi(System.getenv("ZHIPU_AI_API_KEY"));
+	YtoAiApi zhiPuAiApi = new YtoAiApi(System.getenv("YTO_AI_API_KEY"));
 
 	private static <T> T fromJson(String json, Class<T> targetClass) {
 		try {
