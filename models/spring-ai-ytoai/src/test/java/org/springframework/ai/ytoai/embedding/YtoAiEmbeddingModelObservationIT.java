@@ -60,9 +60,7 @@ public class YtoAiEmbeddingModelObservationIT {
 
 	@Test
 	void observationForEmbeddingOperation() {
-		var options = YtoAiEmbeddingOptions.builder()
-			.withModel(YtoAiApi.EmbeddingModel.Embedding_2.getValue())
-			.build();
+		var options = YtoAiEmbeddingOptions.builder().withModel(YtoAiApi.EmbeddingModel.Embedding_2.getValue()).build();
 
 		EmbeddingRequest embeddingRequest = new EmbeddingRequest(List.of("Here comes the sun"), options);
 
@@ -106,7 +104,7 @@ public class YtoAiEmbeddingModelObservationIT {
 
 		@Bean
 		public YtoAiEmbeddingModel zhiPuAiEmbeddingModel(YtoAiApi zhiPuAiApi,
-														 TestObservationRegistry observationRegistry) {
+				TestObservationRegistry observationRegistry) {
 			return new YtoAiEmbeddingModel(zhiPuAiApi, MetadataMode.EMBED,
 					YtoAiEmbeddingOptions.builder().withModel(YtoAiApi.DEFAULT_EMBEDDING_MODEL).build(),
 					RetryTemplate.defaultInstance(), observationRegistry);

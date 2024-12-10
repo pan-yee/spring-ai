@@ -84,8 +84,8 @@ public class YtoAiRetryTests {
 
 		var choice = new YtoAiApi.ChatCompletion.Choice(YtoAiApi.ChatCompletionFinishReason.STOP, 0,
 				new YtoAiApi.ChatCompletionMessage("Response", YtoAiApi.ChatCompletionMessage.Role.ASSISTANT), null);
-		YtoAiApi.ChatCompletion expectedChatCompletion = new YtoAiApi.ChatCompletion("id", List.of(choice), 666L, "model", null, null,
-				new YtoAiApi.Usage(10, 10, 10));
+		YtoAiApi.ChatCompletion expectedChatCompletion = new YtoAiApi.ChatCompletion("id", List.of(choice), 666L,
+				"model", null, null, new YtoAiApi.Usage(10, 10, 10));
 
 		given(this.zhiPuAiApi.chatCompletionEntity(isA(YtoAiApi.ChatCompletionRequest.class)))
 			.willThrow(new TransientAiException("Transient Error 1"))
@@ -112,8 +112,8 @@ public class YtoAiRetryTests {
 
 		var choice = new YtoAiApi.ChatCompletionChunk.ChunkChoice(YtoAiApi.ChatCompletionFinishReason.STOP, 0,
 				new YtoAiApi.ChatCompletionMessage("Response", YtoAiApi.ChatCompletionMessage.Role.ASSISTANT), null);
-		YtoAiApi.ChatCompletionChunk expectedChatCompletion = new YtoAiApi.ChatCompletionChunk("id", List.of(choice), 666L, "model", null,
-				null);
+		YtoAiApi.ChatCompletionChunk expectedChatCompletion = new YtoAiApi.ChatCompletionChunk("id", List.of(choice),
+				666L, "model", null, null);
 
 		given(this.zhiPuAiApi.chatCompletionStream(isA(YtoAiApi.ChatCompletionRequest.class)))
 			.willThrow(new TransientAiException("Transient Error 1"))
@@ -139,7 +139,8 @@ public class YtoAiRetryTests {
 	public void zhiPuAiEmbeddingTransientError() {
 
 		YtoAiApi.EmbeddingList<YtoAiApi.Embedding> expectedEmbeddings = new YtoAiApi.EmbeddingList<>("list",
-				List.of(new YtoAiApi.Embedding(0, new float[] { 9.9f, 8.8f })), "model", new YtoAiApi.Usage(10, 10, 10));
+				List.of(new YtoAiApi.Embedding(0, new float[] { 9.9f, 8.8f })), "model",
+				new YtoAiApi.Usage(10, 10, 10));
 
 		given(this.zhiPuAiApi.embeddings(isA(YtoAiApi.EmbeddingRequest.class)))
 			.willThrow(new TransientAiException("Transient Error 1"))

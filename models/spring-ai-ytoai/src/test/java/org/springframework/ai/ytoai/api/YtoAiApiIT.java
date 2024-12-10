@@ -36,9 +36,10 @@ public class YtoAiApiIT {
 
 	@Test
 	void chatCompletionEntity() {
-		YtoAiApi.ChatCompletionMessage chatCompletionMessage = new YtoAiApi.ChatCompletionMessage("Hello world", YtoAiApi.ChatCompletionMessage.Role.USER);
-		ResponseEntity<YtoAiApi.ChatCompletion> response = this.ytoAiApi
-			.chatCompletionEntity(new YtoAiApi.ChatCompletionRequest(List.of(chatCompletionMessage), "glm-3-turbo", 0.7, false));
+		YtoAiApi.ChatCompletionMessage chatCompletionMessage = new YtoAiApi.ChatCompletionMessage("Hello world",
+				YtoAiApi.ChatCompletionMessage.Role.USER);
+		ResponseEntity<YtoAiApi.ChatCompletion> response = this.ytoAiApi.chatCompletionEntity(
+				new YtoAiApi.ChatCompletionRequest(List.of(chatCompletionMessage), "glm-3-turbo", 0.7, false));
 
 		assertThat(response).isNotNull();
 		assertThat(response.getBody()).isNotNull();
@@ -46,10 +47,11 @@ public class YtoAiApiIT {
 
 	@Test
 	void chatCompletionEntityWithMoreParams() {
-		YtoAiApi.ChatCompletionMessage chatCompletionMessage = new YtoAiApi.ChatCompletionMessage("Hello world", YtoAiApi.ChatCompletionMessage.Role.USER);
+		YtoAiApi.ChatCompletionMessage chatCompletionMessage = new YtoAiApi.ChatCompletionMessage("Hello world",
+				YtoAiApi.ChatCompletionMessage.Role.USER);
 		ResponseEntity<YtoAiApi.ChatCompletion> response = this.ytoAiApi
-			.chatCompletionEntity(new YtoAiApi.ChatCompletionRequest(List.of(chatCompletionMessage), "glm-3-turbo", 1024, null,
-					false, 0.95, 0.7, null, null, null, "test_request_id", false));
+			.chatCompletionEntity(new YtoAiApi.ChatCompletionRequest(List.of(chatCompletionMessage), "glm-3-turbo",
+					1024, null, false, 0.95, 0.7, null, null, null, "test_request_id", false));
 
 		assertThat(response).isNotNull();
 		assertThat(response.getBody()).isNotNull();
@@ -57,9 +59,10 @@ public class YtoAiApiIT {
 
 	@Test
 	void chatCompletionStream() {
-		YtoAiApi.ChatCompletionMessage chatCompletionMessage = new YtoAiApi.ChatCompletionMessage("Hello world", YtoAiApi.ChatCompletionMessage.Role.USER);
-		Flux<YtoAiApi.ChatCompletionChunk> response = this.ytoAiApi
-			.chatCompletionStream(new YtoAiApi.ChatCompletionRequest(List.of(chatCompletionMessage), "glm-3-turbo", 0.7, true));
+		YtoAiApi.ChatCompletionMessage chatCompletionMessage = new YtoAiApi.ChatCompletionMessage("Hello world",
+				YtoAiApi.ChatCompletionMessage.Role.USER);
+		Flux<YtoAiApi.ChatCompletionChunk> response = this.ytoAiApi.chatCompletionStream(
+				new YtoAiApi.ChatCompletionRequest(List.of(chatCompletionMessage), "glm-3-turbo", 0.7, true));
 
 		assertThat(response).isNotNull();
 		assertThat(response.collectList().block()).isNotNull();

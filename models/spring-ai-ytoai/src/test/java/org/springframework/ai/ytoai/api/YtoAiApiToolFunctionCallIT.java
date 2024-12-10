@@ -98,8 +98,7 @@ public class YtoAiApiToolFunctionCallIT {
 		List<ChatCompletionMessage> messages = new ArrayList<>(List.of(message));
 
 		ChatCompletionRequest chatCompletionRequest = new ChatCompletionRequest(messages,
-				YtoAiApi.ChatModel.GLM_4.value, List.of(functionTool),
-				ToolChoiceBuilder.AUTO);
+				YtoAiApi.ChatModel.GLM_4.value, List.of(functionTool), ToolChoiceBuilder.AUTO);
 
 		ResponseEntity<ChatCompletion> chatCompletion = this.zhiPuAiApi.chatCompletionEntity(chatCompletionRequest);
 
@@ -128,9 +127,8 @@ public class YtoAiApiToolFunctionCallIT {
 			}
 		}
 
-		var functionResponseRequest = new ChatCompletionRequest(messages,
-				YtoAiApi.ChatModel.GLM_4.value, List.of(functionTool),
-				ToolChoiceBuilder.AUTO);
+		var functionResponseRequest = new ChatCompletionRequest(messages, YtoAiApi.ChatModel.GLM_4.value,
+				List.of(functionTool), ToolChoiceBuilder.AUTO);
 
 		ResponseEntity<ChatCompletion> chatCompletion2 = this.zhiPuAiApi.chatCompletionEntity(functionResponseRequest);
 

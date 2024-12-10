@@ -116,8 +116,9 @@ public class ChatCompletionRequestTests {
 			.isNullOrEmpty();
 
 		// Explicitly enable the function
-		request = client.createRequest(new Prompt("Test message content",
-				YtoAiChatOptions.builder().withFunction(TOOL_FUNCTION_NAME).build()), false);
+		request = client.createRequest(
+				new Prompt("Test message content", YtoAiChatOptions.builder().withFunction(TOOL_FUNCTION_NAME).build()),
+				false);
 
 		assertThat(request.tools()).hasSize(1);
 		assertThat(request.tools().get(0).getFunction().getName()).as("Explicitly enabled function")

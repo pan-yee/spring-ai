@@ -1,19 +1,18 @@
 package org.springframework.ai.ytoai;/*
- * Copyright 2023-2024 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
+										* Copyright 2023-2024 the original author or authors.
+										*
+										* Licensed under the Apache License, Version 2.0 (the "License");
+										* you may not use this file except in compliance with the License.
+										* You may obtain a copy of the License at
+										*
+										*      https://www.apache.org/licenses/LICENSE-2.0
+										*
+										* Unless required by applicable law or agreed to in writing, software
+										* distributed under the License is distributed on an "AS IS" BASIS,
+										* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+										* See the License for the specific language governing permissions and
+										* limitations under the License.
+										*/
 
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;
@@ -127,7 +126,7 @@ public class YtoAiChatModel extends AbstractToolCallSupport implements ChatModel
 	 * @param retryTemplate The retry template.
 	 */
 	public YtoAiChatModel(YtoAiApi zhiPuAiApi, YtoAiChatOptions options,
-                          FunctionCallbackContext functionCallbackContext, RetryTemplate retryTemplate) {
+			FunctionCallbackContext functionCallbackContext, RetryTemplate retryTemplate) {
 		this(zhiPuAiApi, options, functionCallbackContext, List.of(), retryTemplate, ObservationRegistry.NOOP);
 	}
 
@@ -142,8 +141,8 @@ public class YtoAiChatModel extends AbstractToolCallSupport implements ChatModel
 	 * @param observationRegistry The ObservationRegistry used for instrumentation.
 	 */
 	public YtoAiChatModel(YtoAiApi zhiPuAiApi, YtoAiChatOptions options,
-                          FunctionCallbackContext functionCallbackContext, List<FunctionCallback> toolFunctionCallbacks,
-                          RetryTemplate retryTemplate, ObservationRegistry observationRegistry) {
+			FunctionCallbackContext functionCallbackContext, List<FunctionCallback> toolFunctionCallbacks,
+			RetryTemplate retryTemplate, ObservationRegistry observationRegistry) {
 		super(functionCallbackContext, options, toolFunctionCallbacks);
 		Assert.notNull(zhiPuAiApi, "ZhiPuAiApi must not be null");
 		Assert.notNull(options, "Options must not be null");
@@ -347,8 +346,9 @@ public class YtoAiChatModel extends AbstractToolCallSupport implements ChatModel
 
 						contentList.addAll(userMessage.getMedia()
 							.stream()
-							.map(media -> new ChatCompletionMessage.MediaContent(new ChatCompletionMessage.MediaContent.ImageUrl(
-									this.fromMediaData(media.getMimeType(), media.getData()))))
+							.map(media -> new ChatCompletionMessage.MediaContent(
+									new ChatCompletionMessage.MediaContent.ImageUrl(
+											this.fromMediaData(media.getMimeType(), media.getData()))))
 							.toList());
 
 						content = contentList;
@@ -363,7 +363,8 @@ public class YtoAiChatModel extends AbstractToolCallSupport implements ChatModel
 				List<ChatCompletionMessage.ToolCall> toolCalls = null;
 				if (!CollectionUtils.isEmpty(assistantMessage.getToolCalls())) {
 					toolCalls = assistantMessage.getToolCalls().stream().map(toolCall -> {
-						var function = new ChatCompletionMessage.ChatCompletionFunction(toolCall.name(), toolCall.arguments());
+						var function = new ChatCompletionMessage.ChatCompletionFunction(toolCall.name(),
+								toolCall.arguments());
 						return new ChatCompletionMessage.ToolCall(toolCall.id(), toolCall.type(), function);
 					}).toList();
 				}

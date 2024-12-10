@@ -1,19 +1,18 @@
 package org.springframework.ai.ytoai;/*
- * Copyright 2023-2024 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
+										* Copyright 2023-2024 the original author or authors.
+										*
+										* Licensed under the Apache License, Version 2.0 (the "License");
+										* you may not use this file except in compliance with the License.
+										* You may obtain a copy of the License at
+										*
+										*      https://www.apache.org/licenses/LICENSE-2.0
+										*
+										* Unless required by applicable law or agreed to in writing, software
+										* distributed under the License is distributed on an "AS IS" BASIS,
+										* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+										* See the License for the specific language governing permissions and
+										* limitations under the License.
+										*/
 
 import io.micrometer.observation.ObservationRegistry;
 import org.slf4j.Logger;
@@ -94,7 +93,7 @@ public class YtoAiEmbeddingModel extends AbstractEmbeddingModel {
 	 * @param ytoAiEmbeddingOptions The options for ZhiPuAI embedding.
 	 */
 	public YtoAiEmbeddingModel(YtoAiApi ytoAiApi, MetadataMode metadataMode,
-                               YtoAiEmbeddingOptions ytoAiEmbeddingOptions) {
+			YtoAiEmbeddingOptions ytoAiEmbeddingOptions) {
 		this(ytoAiApi, metadataMode, ytoAiEmbeddingOptions, RetryUtils.DEFAULT_RETRY_TEMPLATE);
 	}
 
@@ -106,7 +105,7 @@ public class YtoAiEmbeddingModel extends AbstractEmbeddingModel {
 	 * @param retryTemplate - The RetryTemplate for retrying failed API requests.
 	 */
 	public YtoAiEmbeddingModel(YtoAiApi ytoAiApi, MetadataMode metadataMode,
-							   YtoAiEmbeddingOptions ytoAiEmbeddingOptions, RetryTemplate retryTemplate) {
+			YtoAiEmbeddingOptions ytoAiEmbeddingOptions, RetryTemplate retryTemplate) {
 		this(ytoAiApi, metadataMode, ytoAiEmbeddingOptions, retryTemplate, ObservationRegistry.NOOP);
 	}
 
@@ -119,7 +118,7 @@ public class YtoAiEmbeddingModel extends AbstractEmbeddingModel {
 	 * @param observationRegistry - The ObservationRegistry used for instrumentation.
 	 */
 	public YtoAiEmbeddingModel(YtoAiApi ytoAiApi, MetadataMode metadataMode, YtoAiEmbeddingOptions options,
-                               RetryTemplate retryTemplate, ObservationRegistry observationRegistry) {
+			RetryTemplate retryTemplate, ObservationRegistry observationRegistry) {
 		Assert.notNull(ytoAiApi, "ZhiPuAiApi must not be null");
 		Assert.notNull(metadataMode, "metadataMode must not be null");
 		Assert.notNull(options, "options must not be null");
@@ -204,7 +203,7 @@ public class YtoAiEmbeddingModel extends AbstractEmbeddingModel {
 	 * use in the request.
 	 */
 	private YtoAiEmbeddingOptions mergeOptions(@Nullable EmbeddingOptions runtimeOptions,
-																			  YtoAiEmbeddingOptions defaultOptions) {
+			YtoAiEmbeddingOptions defaultOptions) {
 		var runtimeOptionsForProvider = ModelOptionsUtils.copyToTarget(runtimeOptions, EmbeddingOptions.class,
 				YtoAiEmbeddingOptions.class);
 

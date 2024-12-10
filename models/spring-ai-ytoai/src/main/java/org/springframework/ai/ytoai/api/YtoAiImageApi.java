@@ -1,19 +1,18 @@
 package org.springframework.ai.ytoai.api;/*
- * Copyright 2023-2024 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
+											* Copyright 2023-2024 the original author or authors.
+											*
+											* Licensed under the Apache License, Version 2.0 (the "License");
+											* you may not use this file except in compliance with the License.
+											* You may obtain a copy of the License at
+											*
+											*      https://www.apache.org/licenses/LICENSE-2.0
+											*
+											* Unless required by applicable law or agreed to in writing, software
+											* distributed under the License is distributed on an "AS IS" BASIS,
+											* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+											* See the License for the specific language governing permissions and
+											* limitations under the License.
+											*/
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -39,8 +38,7 @@ public class YtoAiImageApi {
 	private final RestClient restClient;
 
 	/**
-	 * Create a new ytoAI Image api with base URL set to
-	 * {@code https://api.ytoAI.com}.
+	 * Create a new ytoAI Image api with base URL set to {@code https://api.ytoAI.com}.
 	 * @param zhiPuAiToken ytoAI apiKey.
 	 */
 	public YtoAiImageApi(String zhiPuAiToken) {
@@ -65,7 +63,7 @@ public class YtoAiImageApi {
 	 * @param responseErrorHandler the response error handler to use.
 	 */
 	public YtoAiImageApi(String baseUrl, String zhiPuAiToken, RestClient.Builder restClientBuilder,
-                         ResponseErrorHandler responseErrorHandler) {
+			ResponseErrorHandler responseErrorHandler) {
 
 		this.restClient = restClientBuilder.baseUrl(baseUrl).defaultHeaders(h -> h.setBearerAuth(zhiPuAiToken)
 		// h.setContentType(MediaType.APPLICATION_JSON);
