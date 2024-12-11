@@ -47,12 +47,10 @@ public class YtoAiStreamFunctionCallingHelper {
 			return current;
 		}
 
-		String id = (current.id() != null ? current.id() : previous.id());
-		Long created = (current.created() != null ? current.created() : previous.created());
-		String model = (current.model() != null ? current.model() : previous.model());
-		String systemFingerprint = (current.systemFingerprint() != null ? current.systemFingerprint()
-				: previous.systemFingerprint());
-		String object = (current.object() != null ? current.object() : previous.object());
+		String id = (current.id() != null ? current.id() : current.requestId());
+		String requestId = (current.requestId() != null ? current.requestId() : previous.requestId());
+		String sessionId = (current.sessionId() != null ? current.sessionId() : previous.sessionId());
+		String chatType = (current.chatType() != null ? current.chatType() : previous.chatType());
 
 		YtoAiApi.ChatCompletionChunk.ChunkChoice previousChoice0 = (CollectionUtils.isEmpty(previous.choices()) ? null
 				: previous.choices().get(0));
@@ -61,7 +59,7 @@ public class YtoAiStreamFunctionCallingHelper {
 
 		YtoAiApi.ChatCompletionChunk.ChunkChoice choice = merge(previousChoice0, currentChoice0);
 		List<YtoAiApi.ChatCompletionChunk.ChunkChoice> chunkChoices = choice == null ? List.of() : List.of(choice);
-		return new YtoAiApi.ChatCompletionChunk(id, chunkChoices, created, model, systemFingerprint, object);
+		return new YtoAiApi.ChatCompletionChunk(id, sessionId, requestId, chatType, null, chunkChoices);
 	}
 
 	private YtoAiApi.ChatCompletionChunk.ChunkChoice merge(YtoAiApi.ChatCompletionChunk.ChunkChoice previous,
@@ -73,11 +71,10 @@ public class YtoAiStreamFunctionCallingHelper {
 		YtoAiApi.ChatCompletionFinishReason finishReason = (current.finishReason() != null ? current.finishReason()
 				: previous.finishReason());
 		Integer index = (current.index() != null ? current.index() : previous.index());
+		String role = (current.role() != null ? current.role() : previous.role());
+		String content = (current.content() != null ? current.content() : previous.content());
 
-		YtoAiApi.ChatCompletionMessage message = merge(previous.delta(), current.delta());
-
-		YtoAiApi.LogProbs logprobs = (current.logprobs() != null ? current.logprobs() : previous.logprobs());
-		return new YtoAiApi.ChatCompletionChunk.ChunkChoice(finishReason, index, message, logprobs);
+		return new YtoAiApi.ChatCompletionChunk.ChunkChoice(finishReason, index, role, content, null);
 	}
 
 	private ChatCompletionMessage merge(YtoAiApi.ChatCompletionMessage previous, ChatCompletionMessage current) {
@@ -192,11 +189,11 @@ public class YtoAiStreamFunctionCallingHelper {
 		List<ChatCompletion.Choice> choices = chunk.choices()
 			.stream()
 			.map(chunkChoice -> new ChatCompletion.Choice(chunkChoice.finishReason(), chunkChoice.index(),
-					chunkChoice.delta(), chunkChoice.logprobs()))
+					chunkChoice.role(), chunkChoice.content(), null))
 			.toList();
 
-		return new ChatCompletion(chunk.id(), choices, chunk.created(), chunk.model(), chunk.systemFingerprint(),
-				"chat.completion", null);
+		return new ChatCompletion(chunk.id(), chunk.sessionId(), chunk.requestId(), chunk.chatType(),
+				chunk.rasaResult(), choices);
 	}
 
 }

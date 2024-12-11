@@ -105,7 +105,7 @@ public class YtoAiApiToolFunctionCallIT {
 		assertThat(chatCompletion.getBody()).isNotNull();
 		assertThat(chatCompletion.getBody().choices()).isNotEmpty();
 
-		ChatCompletionMessage responseMessage = chatCompletion.getBody().choices().get(0).message();
+		ChatCompletionMessage responseMessage = null;
 
 		assertThat(responseMessage.role()).isEqualTo(Role.ASSISTANT);
 		assertThat(responseMessage.toolCalls()).isNotNull();
@@ -136,8 +136,8 @@ public class YtoAiApiToolFunctionCallIT {
 
 		assertThat(Objects.requireNonNull(chatCompletion2.getBody()).choices()).isNotEmpty();
 
-		assertThat(chatCompletion2.getBody().choices().get(0).message().role()).isEqualTo(Role.ASSISTANT);
-		assertThat(chatCompletion2.getBody().choices().get(0).message().content()).contains("San Francisco")
+		assertThat(chatCompletion2.getBody().choices().get(0).role()).isEqualTo(Role.ASSISTANT);
+		assertThat(chatCompletion2.getBody().choices().get(0).content()).contains("San Francisco")
 			.containsAnyOf("30.0°C", "30°C", "30.0°F", "30°F");
 	}
 

@@ -50,8 +50,8 @@ public class YtoAiApiIT {
 		YtoAiApi.ChatCompletionMessage chatCompletionMessage = new YtoAiApi.ChatCompletionMessage("Hello world",
 				YtoAiApi.ChatCompletionMessage.Role.USER);
 		ResponseEntity<YtoAiApi.ChatCompletion> response = this.ytoAiApi
-			.chatCompletionEntity(new YtoAiApi.ChatCompletionRequest(List.of(chatCompletionMessage), "glm-3-turbo",
-					1024, null, false, 0.95, 0.7, null, null, null, "test_request_id", false));
+			.chatCompletionEntity(new YtoAiApi.ChatCompletionRequest(null, null, List.of(chatCompletionMessage),
+					"glm-3-turbo", 1024, null, false, 0.95, 0.7, null, null, null, "test_request_id", false));
 
 		assertThat(response).isNotNull();
 		assertThat(response.getBody()).isNotNull();

@@ -157,15 +157,15 @@ public class YtoAiChatModel extends AbstractToolCallSupport implements ChatModel
 	}
 
 	private static Generation buildGeneration(ChatCompletion.Choice choice, Map<String, Object> metadata) {
-		List<AssistantMessage.ToolCall> toolCalls = choice.message().toolCalls() == null ? List.of()
-				: choice.message()
-					.toolCalls()
-					.stream()
-					.map(toolCall -> new AssistantMessage.ToolCall(toolCall.id(), "function",
-							toolCall.function().name(), toolCall.function().arguments()))
-					.toList();
 
-		var assistantMessage = new AssistantMessage(choice.message().content(), metadata, toolCalls);
+		/*
+		 * List<AssistantMessage.ToolCall> toolCalls = choice.toolCalls() == null ?
+		 * List.of() : choice.message().toolCalls().stream().map(toolCall -> new
+		 * AssistantMessage.ToolCall(toolCall.id(), "function",
+		 * toolCall.function().name(), toolCall.function().arguments())).toList();
+		 */
+		final List<AssistantMessage.ToolCall> function = List.of(new AssistantMessage.ToolCall("", "function", "", ""));
+		var assistantMessage = new AssistantMessage(choice.content(), metadata, function);
 		String finishReason = (choice.finishReason() != null ? choice.finishReason().name() : "");
 		var generationMetadata = ChatGenerationMetadata.from(finishReason, null);
 		return new Generation(assistantMessage, generationMetadata);
@@ -202,7 +202,7 @@ public class YtoAiChatModel extends AbstractToolCallSupport implements ChatModel
 			// @formatter:off
 					Map<String, Object> metadata = Map.of(
 						"id", chatCompletion.id(),
-						"role", choice.message().role() != null ? choice.message().role().name() : "",
+						"role", choice.role() != null ? choice.role() : "",
 						"finishReason", choice.finishReason() != null ? choice.finishReason().name() : ""
 					);
 					// @formatter:on
@@ -262,8 +262,8 @@ public class YtoAiChatModel extends AbstractToolCallSupport implements ChatModel
 
 				// @formatter:off
 						List<Generation> generations = chatCompletion2.choices().stream().map(choice -> {
-							if (choice.message().role() != null) {
-								roleMap.putIfAbsent(id, choice.message().role().name());
+							if (choice.role() != null) {
+								roleMap.putIfAbsent(id, choice.role());
 							}
 							Map<String, Object> metadata = Map.of(
 								"id", chatCompletion2.id(),
@@ -306,10 +306,12 @@ public class YtoAiChatModel extends AbstractToolCallSupport implements ChatModel
 		Assert.notNull(result, "ZhiPuAI ChatCompletionResult must not be null");
 		return ChatResponseMetadata.builder()
 			.withId(result.id() != null ? result.id() : "")
-			.withUsage(result.usage() != null ? YtoAiUsage.from(result.usage()) : new EmptyUsage())
-			.withModel(result.model() != null ? result.model() : "")
-			.withKeyValue("created", result.created() != null ? result.created() : 0L)
-			.withKeyValue("system-fingerprint", result.systemFingerprint() != null ? result.systemFingerprint() : "")
+			// .withUsage(result.usage() != null ? YtoAiUsage.from(result.usage()) : new
+			// EmptyUsage())
+			// .withModel(result.model() != null ? result.model() : "")
+			// .withKeyValue("created", result.created() != null ? result.created() : 0L)
+			// .withKeyValue("system-fingerprint", result.systemFingerprint() != null ?
+			// result.systemFingerprint() : "")
 			.build();
 	}
 
@@ -324,11 +326,11 @@ public class YtoAiChatModel extends AbstractToolCallSupport implements ChatModel
 			if (delta == null) {
 				delta = new ChatCompletionMessage("", ChatCompletionMessage.Role.ASSISTANT);
 			}
-			return new ChatCompletion.Choice(cc.finishReason(), cc.index(), delta, cc.logprobs());
+			return new ChatCompletion.Choice(cc.finishReason(), cc.index(), cc.role(), cc.content(), null);
 		}).toList();
 
-		return new ChatCompletion(chunk.id(), choices, chunk.created(), chunk.model(), chunk.systemFingerprint(),
-				"chat.completion", null);
+		return new ChatCompletion(chunk.id(), chunk.sessionId(), chunk.requestId(), chunk.chatType(), "chat.completion",
+				choices);
 	}
 
 	/**
