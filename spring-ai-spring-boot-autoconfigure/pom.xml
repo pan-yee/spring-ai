@@ -561,6 +561,7 @@
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-ytoai</artifactId>
 			<version>${project.parent.version}</version>
+			<optional>true</optional>
 		</dependency>
 
 	</dependencies>

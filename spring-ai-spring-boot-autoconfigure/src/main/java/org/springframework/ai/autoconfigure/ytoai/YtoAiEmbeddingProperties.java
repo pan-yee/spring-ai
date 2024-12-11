@@ -18,8 +18,7 @@ package org.springframework.ai.autoconfigure.ytoai;
 
 import org.springframework.ai.document.MetadataMode;
 import org.springframework.ai.ytoai.YtoAiEmbeddingOptions;
-import org.springframework.ai.zhipuai.ZhiPuAiEmbeddingOptions;
-import org.springframework.ai.zhipuai.api.ZhiPuAiApi;
+import org.springframework.ai.ytoai.api.YtoAiApi;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
@@ -31,9 +30,9 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 @ConfigurationProperties(YtoAiEmbeddingProperties.CONFIG_PREFIX)
 public class YtoAiEmbeddingProperties extends YtoAiParentProperties {
 
-	public static final String CONFIG_PREFIX = "spring.ai.zhipuai.embedding";
+	public static final String CONFIG_PREFIX = "spring.ai.ytoai.embedding";
 
-	public static final String DEFAULT_EMBEDDING_MODEL = ZhiPuAiApi.EmbeddingModel.Embedding_2.value;
+	public static final String DEFAULT_EMBEDDING_MODEL = YtoAiApi.EmbeddingModel.Embedding_2.value;
 
 	/**
 	 * Enable ZhiPuAI embedding model.

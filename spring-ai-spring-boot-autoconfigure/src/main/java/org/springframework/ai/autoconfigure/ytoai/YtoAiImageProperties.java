@@ -28,7 +28,7 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 @ConfigurationProperties(YtoAiImageProperties.CONFIG_PREFIX)
 public class YtoAiImageProperties extends YtoAiParentProperties {
 
-	public static final String CONFIG_PREFIX = "spring.ai.zhipuai.image";
+	public static final String CONFIG_PREFIX = "spring.ai.ytoai.image";
 
 	/**
 	 * Enable YtoAI image model.
