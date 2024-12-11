@@ -217,7 +217,7 @@ public class YtoAiApi {
 		}
 
 		return this.restClient.post()
-				.uri("/v4/embeddings")
+				.uri("/v1/embeddings")
 				.body(embeddingRequest)
 				.retrieve()
 				.toEntity(new ParameterizedTypeReference<>() {
@@ -512,7 +512,7 @@ public class YtoAiApi {
 	public record ChatCompletionRequest(
 			@JsonProperty("robotCode") String robotCode,
 			@JsonProperty("query") String query,
-			@JsonProperty("messages") List<ChatCompletionMessage> messages,
+			@JsonProperty("chatMessages") List<ChatCompletionMessage> messages,
 			@JsonProperty("model") String model,
 			@JsonProperty("max_tokens") Integer maxTokens,
 			@JsonProperty("stop") List<String> stop,

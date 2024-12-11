@@ -171,7 +171,9 @@ public class YtoAiEmbeddingModel extends AbstractEmbeddingModel {
 						embeddingList.add(new float[0]);
 					}
 					else {
-						int completionTokens = totalUsage.completionTokens() + response.usage().completionTokens();
+						int token = response.usage().completionTokens() == null ? 0
+								: response.usage().completionTokens();
+						int completionTokens = totalUsage.completionTokens() + token;
 						int promptTokens = totalUsage.promptTokens() + response.usage().promptTokens();
 						int totalTokens = totalUsage.totalTokens() + response.usage().totalTokens();
 						totalUsage = new YtoAiApi.Usage(completionTokens, promptTokens, totalTokens);
